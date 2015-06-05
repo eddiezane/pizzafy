@@ -1,18 +1,27 @@
-var express        = require('express');
-var app            = express();
-var bodyParser     = require('body-parser');
-var multer         = require('multer');
-var sendgrid       = require('sendgrid')(process.env.SENDGRID_APIKEY);
-var mongoose       = require('mongoose');
-var hbs            = require('express-hbs');
-var cookieParser   = require('cookie-parser');
-var session        = require('express-session');
-var Promise        = require('bluebird');
-var passport       = require('passport');
+/*
+ * Initial imports
+ */
+var express      = require('express');
+var app          = express();
+var multer       = require('multer');
+var cookieParser = require('cookie-parser');
+var bodyParser   = require('body-parser');
+var session      = require('express-session');
+var hbs          = require('express-hbs');
+var validator    = require('express-validator');
+var logger       = require('morgan');
+var flash        = require('express-flash');
+var lusca        = require('lusca');
+var errorHandler = require('errorhandler');
+var passport     = require('passport');
+var mongoose     = require('mongoose');
+var Promise      = require('bluebird');
 
 if (app.get('env') === 'development') {
     require('dotenv').load();
 }
+
+var sendgrid = require('sendgrid')(process.env.SENDGRID_APIKEY);
 
 Promise.promisifyAll(mongoose);
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/pizzafy');
@@ -29,20 +38,53 @@ app.set('views', __dirname + '/views');
 var passportConfig = require('./config/passport.js');
 
 app.use(express.static('public'));
+app.use(logger('dev'));
 app.use(multer());
-app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use(session({secret: process.env.SESSION_SECRET}));
+app.use(session({
+  resave: true,
+  saveUninitialized: true,
+  secret: process.env.SESSION_SECRET
+}));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
+app.use(lusca({
+  csrf: true,
+  xframe: 'SAMEORIGIN',
+  xssProtection: true
+}));
 
 app.get('/', function(req, res) {
-  res.render('index');
+  res.render('index', {
+    title: 'Pizzafy',
+    layout: 'layouts/home'
+  });
 });
 
 app.get('/login', function(req, res) {
-  res.send('login page');
+  if (req.user) {
+    res.redirect('/');
+  }
+
+  res.render('login', {
+    title: 'Pizzafy',
+    layout: 'layouts/home'
+  });
+});
+
+app.get('/signup', function(req, res) {
+  res.render('signup', {
+    title: 'Pizzafy',
+    layout: 'layouts/home'
+  });
+});
+
+app.post('signup', function(req, res) {
+  // Needs csrf
+  res.end();
 });
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
@@ -54,6 +96,11 @@ app.get('/auth/twitter', passport.authenticate('twitter'));
 app.get('/auth/twitter/callback', passport.authenticate('twitter', {failureRedirect: '/login'}), function(req, res) {
   res.redirect('/');
 });
+
+
+if (app.get('env') === 'development') {
+  app.use(errorHandler());
+}
 
 app.listen(app.get('port'), function() {
   console.log('listening on ' + app.get('port'));
