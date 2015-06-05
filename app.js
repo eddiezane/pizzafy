@@ -15,6 +15,7 @@ var lusca        = require('lusca');
 var errorHandler = require('errorhandler');
 var passport     = require('passport');
 var mongoose     = require('mongoose');
+var MongoStore   = require('connect-mongo')(session); 
 var Promise      = require('bluebird');
 
 if (app.get('env') === 'development') {
@@ -24,7 +25,7 @@ if (app.get('env') === 'development') {
 var sendgrid = require('sendgrid')(process.env.SENDGRID_APIKEY);
 
 Promise.promisifyAll(mongoose);
-mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/pizzafy');
+mongoose.connect(process.env.MONGOLAB_URI);
 
 var User = require('./models/user.js');
 
@@ -46,7 +47,8 @@ app.use(cookieParser());
 app.use(session({
   resave: true,
   saveUninitialized: true,
-  secret: process.env.SESSION_SECRET
+  secret: process.env.SESSION_SECRET,
+  store: new MongoStore({ url: process.env.MONGOLAB_URI, autoReconnect: true })
 }));
 app.use(passport.initialize());
 app.use(passport.session());
