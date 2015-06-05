@@ -20,11 +20,15 @@
     "bcrypt": "^0.8.3",
     "bluebird": "^2.9.27",
     "body-parser": "^1.12.4",
+    "dotenv": "^1.1.0",
     "express": "^4.12.4",
+    "express-session": "^1.11.2",
     "mongoose": "^4.0.4",
     "multer": "^0.1.8",
     "passport": "^0.2.2",
     "passport-facebook": "^2.0.0",
+    "passport-local": "^1.0.0",
+    "passport-twitter": "^1.0.3",
     "sendgrid": "^1.8.0"
   }
 }
