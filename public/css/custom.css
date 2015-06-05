@@ -1,0 +1,102 @@
+.navbar {
+	background: #f7f7f7;
+}
+
+.navbar-brand {
+	text-indent: -99999px;
+	padding: 5px 15px;
+}
+
+img {
+	max-width: 100%;
+	width: auto;
+	max-height: 100%;
+	height: 100%;
+	border: 0;
+}
+
+.row {
+	margin-left: 0;
+	margin-right: 0;
+}
+.username, .pizza-number {
+	display: inline-block;
+}
+
+.edit_profile-pic {
+	display: block;
+}
+
+.profile-pic {
+	border-radius: 50%;
+	width: auto;
+	height: 100px;
+	padding: 5px;
+	border: 1px solid #f7f7f7;
+	display: inline-block;
+}
+
+.page-title {
+	display: inline-block;
+	margin: 0 0 0 10px;
+	line-height: 1.2;
+	vertical-align: middle;
+}
+
+@media (max-width: 1000px) {
+	.profile-pic {
+		display: block;
+		margin: 0 auto;
+	}
+	.page-title {
+		display: block;
+		text-align: center;
+	}
+}
+
+.page-header {
+	margin-bottom: 10px;
+	vertical-align: middle;
+}
+
+.form-horizontal .control-label {
+	text-align: left;
+}
+
+.dob div {
+	display: inline-block;
+}
+
+.dob .control-label {
+	display: block;
+}
+
+.dob .controls {
+
+}
+
+.input-mini {
+	width: 50px;
+}
+
+.group-title {
+	display: block;
+}
+
+.toppings-love .checkbox, .crust-prefs .radio {
+	width: 33%;
+	display: inline-block;
+}
+
+.notes textarea {
+	width: 50%;
+	height: 200px;
+}
+
+h3 {
+	margin-top: 10rem;
+}
+
+h3:first-of-type {
+	margin-top: 40px;
+}

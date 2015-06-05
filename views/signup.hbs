@@ -1,3 +1,314 @@
+<div class="col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 main">
+
+  <div class="row page-header">
+    <img src="/images/profilepicture.jpg" class="profile-pic" alt="{{Username}} | Pizzafy" />  
+    <h1 class="page-title">{{Name}}'s Pizza Profile</h1> 
+    <!-- Not using this for now <button type="button" class="badge pizza-number" data-toggle="tooltip" data-placement="top" title="Your Pizza Number: How many slices of pizza you eat">2</button> -->
+  </div>
+  <a href="#" class="edit_profile-pic"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Update your profile picture</a>
+
+  <!-- Note: Profile picture requirements: Must be able to crop to square -->
+
+  <!-- Need to be able to replace your photo here -->
+
+  <form class="form-horizontal">
+    <h3>Basics</h3>
+    <p>Tell us a little more about you, so we can better optimize your pizza experience!</p>
+    <fieldset>
+      <!-- Date of birth -->
+      <div class="row dob">
+        <label class="group-title control-label">Date of Birth</label>
+        <div class="control-group">
+          <label class="control-label" for="month">Month</label>
+          <div class="controls">
+            <input id="month" name="month" type="text" placeholder="MM" class="input-mini">
+          </div>
+        </div> <span class="dob-spacer">/</span>
+        <div class="control-group">
+          <label class="control-label" for="day">Day</label>
+          <div class="controls">
+            <input id="day" name="day" type="text" placeholder="DD" class="input-mini">
+          </div>
+        </div><span class="dob-spacer">/</span>
+        <div class="control-group">
+          <label class="control-label" for="year">Year</label>
+          <div class="controls">
+            <input id="year" name="year" type="text" placeholder="YY" class="input-mini">
+          </div>
+        </div>
+      </div>
+
+      <!-- Gender -->
+      <div class="row gender">
+        <label class="group-title control-label" for="gender">Gender</label>
+        <div class="control-group">
+          <div class="controls">
+            <label class="radio" for="gender-0">
+              <input type="radio" name="gender" id="gender-0" value="Male" checked="checked">
+              Male
+            </label>
+            <label class="radio" for="gender-1">
+              <input type="radio" name="gender" id="gender-1" value="Female">
+              Female
+            </label>
+            <label class="radio" for="gender-2">
+              <input type="radio" name="gender" id="gender-2" value="Other">
+              <input id="other" name="other" type="text" placeholder="Other" class="input-xlarge">
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pizza Number -->
+      <h3>Pizza Number</h3>
+      <p>How many slices of pizza do you eat at the typical pizza party?</p>
+      <div class="pizza-number-group row">
+        <div class="control-group">
+          <label class="control-label" for="pizza-number">Slices</label>
+          <div class="controls">
+            <input id="pizza-number" name="pizza-number" type="text" placeholder="" class="input-mini" required="">
+          </div>
+        </div>
+      </div>
+
+      <!-- Toppings Love -->
+      <!-- This needs to be reorganized majorly, by type of topping -->
+      <h3> Toppings</h3>
+      <p>Tell us about the toppings you love and hate!</p>
+      <div class="toppings-love row">
+        <div class="control-group">
+          <label class="control-label" for="checkboxes">Loves</label>
+          <div class="controls">
+            <label class="checkbox inline" for="checkboxes-0">
+              <input type="checkbox" name="checkboxes" id="checkboxes-0" value="Spinach">
+              Spinach
+            </label>
+            <label class="checkbox inline" for="checkboxes-1">
+              <input type="checkbox" name="checkboxes" id="checkboxes-1" value="Sliced Italian Sausage">
+              Sliced Italian Sausage
+            </label>
+            <label class="checkbox inline" for="checkboxes-2">
+              <input type="checkbox" name="checkboxes" id="checkboxes-2" value="Shredded Provolone Cheese">
+              Shredded Provolone Cheese
+            </label>
+            <label class="checkbox inline" for="checkboxes-3">
+              <input type="checkbox" name="checkboxes" id="checkboxes-3" value="Shredded Parmesan Asiago">
+              Shredded Parmesan Asiago
+            </label>
+            <label class="checkbox inline" for="checkboxes-4">
+              <input type="checkbox" name="checkboxes" id="checkboxes-4" value="Salami">
+              Salami
+            </label>
+            <label class="checkbox inline" for="checkboxes-5">
+              <input type="checkbox" name="checkboxes" id="checkboxes-5" value="Roasted Red Peppers">
+              Roasted Red Peppers
+            </label>
+            <label class="checkbox inline" for="checkboxes-6">
+              <input type="checkbox" name="checkboxes" id="checkboxes-6" value="Premium Chicken">
+              Premium Chicken
+            </label>
+            <label class="checkbox inline" for="checkboxes-7">
+              <input type="checkbox" name="checkboxes" id="checkboxes-7" value="Pineapple">
+              Pineapple
+            </label>
+            <label class="checkbox inline" for="checkboxes-8">
+              <input type="checkbox" name="checkboxes" id="checkboxes-8" value="Philly Steak">
+              Philly Steak
+            </label>
+            <label class="checkbox inline" for="checkboxes-9">
+              <input type="checkbox" name="checkboxes" id="checkboxes-9" value="Pepperoni">
+              Pepperoni
+            </label>
+            <label class="checkbox inline" for="checkboxes-10">
+              <input type="checkbox" name="checkboxes" id="checkboxes-10" value="Onions">
+              Onions
+            </label>
+            <label class="checkbox inline" for="checkboxes-11">
+              <input type="checkbox" name="checkboxes" id="checkboxes-11" value="Mushrooms">
+              Mushrooms
+            </label>
+            <label class="checkbox inline" for="checkboxes-12">
+              <input type="checkbox" name="checkboxes" id="checkboxes-12" value="Jalapeno Peppers">
+              Jalapeno Peppers
+            </label>
+            <label class="checkbox inline" for="checkboxes-13">
+              <input type="checkbox" name="checkboxes" id="checkboxes-13" value="Italian Sausage">
+              Italian Sausage
+            </label>
+            <label class="checkbox inline" for="checkboxes-14">
+              <input type="checkbox" name="checkboxes" id="checkboxes-14" value="Hot Sauce">
+              Hot Sauce
+            </label>
+            <label class="checkbox inline" for="checkboxes-15">
+              <input type="checkbox" name="checkboxes" id="checkboxes-15" value="Ham">
+              Ham
+            </label>
+            <label class="checkbox inline" for="checkboxes-16">
+              <input type="checkbox" name="checkboxes" id="checkboxes-16" value="Grilled Chicken">
+              Grilled Chicken
+            </label>
+            <label class="checkbox inline" for="checkboxes-17">
+              <input type="checkbox" name="checkboxes" id="checkboxes-17" value="Green Peppers">
+              Green Peppers
+            </label>
+            <label class="checkbox inline" for="checkboxes-18">
+              <input type="checkbox" name="checkboxes" id="checkboxes-18" value="Green Olives">
+              Green Olives
+            </label>
+            <label class="checkbox inline" for="checkboxes-19">
+              <input type="checkbox" name="checkboxes" id="checkboxes-19" value="Feta Cheese">
+              Feta Cheese
+            </label>
+            <label class="checkbox inline" for="checkboxes-20">
+              <input type="checkbox" name="checkboxes" id="checkboxes-20" value="Feta">
+              Feta
+            </label>
+            <label class="checkbox inline" for="checkboxes-21">
+              <input type="checkbox" name="checkboxes" id="checkboxes-21" value="Extra cheese">
+              Extra cheese
+            </label>
+            <label class="checkbox inline" for="checkboxes-22">
+              <input type="checkbox" name="checkboxes" id="checkboxes-22" value="Diced Tomatoes">
+              Diced Tomatoes
+            </label>
+            <label class="checkbox inline" for="checkboxes-23">
+              <input type="checkbox" name="checkboxes" id="checkboxes-23" value="Cheddar Cheese">
+              Cheddar Cheese
+            </label>
+            <label class="checkbox inline" for="checkboxes-24">
+              <input type="checkbox" name="checkboxes" id="checkboxes-24" value="Canadian Bacon">
+              Canadian Bacon
+            </label>
+            <label class="checkbox inline" for="checkboxes-25">
+              <input type="checkbox" name="checkboxes" id="checkboxes-25" value="Black Olives">
+              Black Olives
+            </label>
+            <label class="checkbox inline" for="checkboxes-26">
+              <input type="checkbox" name="checkboxes" id="checkboxes-26" value="Beef">
+              Beef
+            </label>
+            <label class="checkbox inline" for="checkboxes-27">
+              <input type="checkbox" name="checkboxes" id="checkboxes-27" value="Banana Peppers">
+              Banana Peppers
+            </label>
+            <label class="checkbox inline" for="checkboxes-28">
+              <input type="checkbox" name="checkboxes" id="checkboxes-28" value="Bacon">
+              Bacon
+            </label>
+            <label class="checkbox inline" for="checkboxes-29">
+              <input type="checkbox" name="checkboxes" id="checkboxes-29" value="Baby Portabella Mushrooms">
+              Baby Portabella Mushrooms
+            </label>
+            <label class="checkbox inline" for="checkboxes-30">
+              <input type="checkbox" name="checkboxes" id="checkboxes-30" value="Anchovies">
+              Anchovies
+            </label>
+            <label class="checkbox inline" for="checkboxes-31">
+              <input type="checkbox" name="checkboxes" id="checkboxes-31" value="3-Cheese Blend">
+              3-Cheese Blend
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Toppings Hate -->
+      <!-- Predictive text tokens based on the same above inputs -->
+      <div class="toppings-hate row">
+        <div class="control-group">
+          <label class="control-label" for="hates">Hates</label>
+          <div class="controls">
+            <input id="hates" name="hates" type="text" placeholder="" class="input-xlarge">
+            <p class="help-block">Which toppings will you not eat, no matter what?</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Crust preferences -->
+      <!-- Multiple Radios (inline) -->
+      <h3>Crust</h3>
+      <div class="crust-prefs row">
+        <div class="control-group">
+          <div class="controls">
+            <label class="radio inline" for="radios-0">
+              <input type="radio" name="radios" id="radios-0" value="Thin crust" checked="checked">
+              Thin crust
+            </label>
+            <label class="radio inline" for="radios-1">
+              <input type="radio" name="radios" id="radios-1" value="Regular crust">
+              Regular crust
+            </label>
+            <label class="radio inline" for="radios-2">
+              <input type="radio" name="radios" id="radios-2" value="Deep dish">
+              Deep dish
+            </label>
+            <label class="radio inline" for="radios-3">
+              <input type="radio" name="radios" id="radios-3" value="Neapolitan">
+              Neapolitan
+            </label>
+            <label class="radio inline" for="radios-4">
+              <input type="radio" name="radios" id="radios-4" value="Sicilian">
+              Sicilian
+            </label>
+            <label class="radio inline" for="radios-5">
+              <input type="radio" name="radios" id="radios-5" value="No preference">
+              No preference
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dietary restrictions -->
+      <h3>Dietary Restrictions</h3>
+      <p>Got dietary restrictions? We got you covered!</p>
+      <div class="dietary row">
+        <div class="control-group">
+          <div class="controls">
+            <label class="checkbox" for="Dietary-0">
+              <input type="checkbox" name="Dietary" id="Dietary-0" value="Vegan">
+              Vegan
+            </label>
+            <label class="checkbox" for="Dietary-1">
+              <input type="checkbox" name="Dietary" id="Dietary-1" value="Vegetarian">
+              Vegetarian
+            </label>
+            <label class="checkbox" for="Dietary-2">
+              <input type="checkbox" name="Dietary" id="Dietary-2" value="Gluten-Free">
+              Gluten-Free
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notes -->
+      <h3>Notes</h3>
+      <p>Do you have any additional comments about your pizza preferences that you would want the organizer of any party to attend to know? Allergies? Requests? Something we didn't cover here?</p>
+      <div class="notes row">
+        <div class="control-group">
+          <label class="control-label" for="notes"></label>
+          <div class="controls">                     
+            <textarea id="notes" name="notes"></textarea>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <!-- submit -->
+      <div class="control-group submit-div">
+        <label class="control-label" for="submit"></label>
+        <div class="controls">
+          <button id="submit" name="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+
+    </fieldset>
+  </form>
+
+</div> <!--cols main-->
+
+
+
 <form action="" method="POST">
   <label for="">Email</label>
   <input type="email">
