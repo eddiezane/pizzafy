@@ -62,7 +62,7 @@ app.use(lusca({
 app.get('/', function(req, res) {
   res.render('index', {
     title: 'Pizzafy',
-    layout: 'layouts/home'
+    layout: null
   });
 });
 
