@@ -1,14 +1,21 @@
 var mongoose = require('mongoose');
 
 var userSchema = mongoose.Schema({
-  name: String,
-  email: String,
+  email: {type: String, unique: true, lowercase: true},
   passwordHash: String,
-  facebookToken: String,
-  facebookProfile: String,
-  twitterToken: String,
-  twitterProfile: String,
-  pizzaNumber: Number,
+
+  profile: {
+    displayName: String,
+    firstName: String,
+    lastName: String,
+    phoneNumber: String,
+    pizzaNumber: Number,
+  },
+
+  facebook: String,
+  twitter: String,
+
+  tokens: Array,
 });
 
 module.exports = mongoose.model('user', userSchema);
