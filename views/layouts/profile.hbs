@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Pizzafy</title>
+    <title>My Pizza Profile | Pizzafy</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <!-- Bootstrap core CSS -->
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -21,7 +21,7 @@
     <link href="/vendor/flat-ui/dist/css/flat-ui.css" rel="stylesheet">
 
     <!-- Alicia's custom CSS-->
-    <link href="/css/custom-home.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -31,7 +31,7 @@
   </head>
 
   <body>
-  <div class="wrapper">
+
     <nav class="navbar navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -42,26 +42,29 @@
             <span class="icon-bar"></span>
           </button>
           <!-- need to replace logo here -->
-          <a class="navbar-brand" href="#"><img src="/images/pizzafylogo-white.svg" alt="Pizzafy.me"/ ><h1>Pizzafy</h1></a>
+          <a class="navbar-brand" href="#"><img src="/images/pizzafylogo2.svg" alt="Pizzafy.me"/ ><h1>Pizzafy</h1></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/login" data-toggle="modal" data-target="#login">Login</a></li>
-             <li><a href="http://twitter.com/pizzafy"><span class="fui-twitter"></span></a></li>
+            <!--<li><a href="#">My Pizza Profile</a></li> -->
+            <!-- <li><a href="#">Settings</a></li>-->
+            <!-- Need modal here -->
+            <!--<li><a href="#" data-toggle="modal" data-target="#myModal">About</a></li> -->
+            <li><a href="#">Log Out</a></li>
           </ul>
         </div>
       </div>
     </nav>
 
-   <!-- <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Login</h4>
+            <h4 class="modal-title" id="myModalLabel">About Pizzafy</h4>
           </div>
           <div class="modal-body">
-            {{> socialSignUp}}
+            <p>Stuff here!</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -69,12 +72,9 @@
         </div>
       </div>
     </div> -->
-    <div class="centered">
-    	<div class="wrap">
-    	{{{body}}}
-    	</div>
-    </div>
-</div> <!-- wrapper -->
+
+    {{{body}}}
+
     <!-- EDDIE!!! getting to 404s on the scripts below because I haven't downloaded them arghhh -->
     <!-- Bootstrap core JavaScript
       ================================================== -->

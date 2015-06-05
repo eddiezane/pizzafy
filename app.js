@@ -60,9 +60,9 @@ app.use(lusca({
 }));
 
 app.get('/', function(req, res) {
-  res.render('index', {
+  res.render('landing', {
     title: 'Pizzafy',
-    layout: null
+    layout: 'layouts/home'
   });
 });
 
@@ -71,16 +71,16 @@ app.get('/login', function(req, res) {
     res.redirect('/');
   }
 
-  res.render('login', {
+  res.render('socialLogin', {
     title: 'Pizzafy',
     layout: 'layouts/home'
   });
 });
 
-app.get('/signup', function(req, res) {
-  res.render('signup', {
+app.get('/profile', function(req, res) {
+  res.render('form', {
     title: 'Pizzafy',
-    layout: 'layouts/home'
+    layout: 'layouts/profile'
   });
 });
 
