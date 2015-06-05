@@ -1,0 +1,30 @@
+{
+  "name": "pizzafy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eddiezane/pizzafy.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eddiezane/pizzafy/issues"
+  },
+  "homepage": "https://github.com/eddiezane/pizzafy#readme",
+  "dependencies": {
+    "bcrypt": "^0.8.3",
+    "bluebird": "^2.9.27",
+    "body-parser": "^1.12.4",
+    "express": "^4.12.4",
+    "mongoose": "^4.0.4",
+    "multer": "^0.1.8",
+    "passport": "^0.2.2",
+    "passport-facebook": "^2.0.0",
+    "sendgrid": "^1.8.0"
+  }
+}
