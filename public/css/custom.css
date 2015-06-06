@@ -7,6 +7,10 @@
 	padding: 5px 15px;
 }
 
+.social-button {
+  width: 100%;
+}
+
 img {
 	max-width: 100%;
 	width: auto;

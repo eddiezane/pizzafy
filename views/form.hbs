@@ -66,30 +66,14 @@
       <div class="crust-prefs row">
         <div class="control-group">
           <div class="controls">
-            <label class="radio inline" for="radios-0">
-              <input type="radio" name="crust" id="radios-0" value="Thin crust" checked="checked">
-              Thin crust
+
+            {{#each crusts}}
+            <label class="radio inline" for="radios-{{@index}}">
+              <input type="radio" name="crust" id="radios-{{@index}}" value="{{this.name}}" {{#if this.checked}}checked="{{this.checked}}"{{/if}}>
+              {{this.name}}
             </label>
-            <label class="radio inline" for="radios-1">
-              <input type="radio" name="crust" id="radios-1" value="Regular crust">
-              Regular crust
-            </label>
-            <label class="radio inline" for="radios-2">
-              <input type="radio" name="crust" id="radios-2" value="Deep dish">
-              Deep dish
-            </label>
-            <label class="radio inline" for="radios-3">
-              <input type="radio" name="crust" id="radios-3" value="Neapolitan">
-              Neapolitan
-            </label>
-            <label class="radio inline" for="radios-4">
-              <input type="radio" name="crust" id="radios-4" value="Sicilian">
-              Sicilian
-            </label>
-            <label class="radio inline" for="radios-5">
-              <input type="radio" name="crust" id="radios-5" value="No preference">
-              No preference
-            </label>
+            {{/each}}
+
           </div>
         </div>
       </div>
@@ -100,18 +84,14 @@
       <div class="dietary row">
         <div class="control-group">
           <div class="controls">
-            <label class="checkbox" for="dietary-0">
-              <input type="checkbox" name="dietary" id="dietary-0" value="Vegan" class="dietary-item">
-              Vegan
+
+            {{#each dietary}}
+            <label class="checkbox" for="dietary-{{@index}}">
+              <input type="checkbox" name="dietary" id="dietary-{{@index}}" value="{{this.name}}" class="dietary-item" {{#if this.checked}}checked="{{this.checked}}"{{/if}}>
+              {{this.name}}
             </label>
-            <label class="checkbox" for="dietary-1">
-              <input type="checkbox" name="dietary" id="dietary-1" value="Vegetarian" class="dietary-item">
-              Vegetarian
-            </label>
-            <label class="checkbox" for="dietary-2">
-              <input type="checkbox" name="dietary" id="dietary-2" value="Gluten-Free" class="dietary-item">
-              Gluten-Free
-            </label>
+            {{/each}}
+
           </div>
         </div>
       </div>
@@ -123,11 +103,10 @@
         <div class="control-group">
           <label class="control-label" for="notes"></label>
           <div class="controls">                     
-            <textarea id="notes" name="notes"></textarea>
+            <textarea id="notes" name="notes">{{notes}}</textarea>
           </div>
         </div>
       </div>
-
 
       <!-- submit -->
       <div class="control-group submit-div">

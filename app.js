@@ -19,6 +19,8 @@ var MongoStore   = require('connect-mongo')(session);
 var Promise      = require('bluebird');
 
 var toppings     = require('./config/toppings.json');
+var crusts       = require('./config/crust.json');
+var dietary      = require('./config/dietary.json');
 
 if (app.get('env') === 'development') {
     require('dotenv').load();
@@ -107,10 +109,37 @@ app.get('/profile', passportConfig.isAuthenticated, function(req, res) {
     });
   });
 
+
+  var crustSet = false;
+  var allCrusts = JSON.parse(JSON.stringify(crusts)).map(function(item) {
+    var crust = {name: item};
+    if (req.user.pizza.crust === item) {
+      crust.checked = true;
+    }
+    return crust;
+  });
+
+  if (!crustSet) allCrusts[0].checked = true;
+
+  var allDietary = JSON.parse(JSON.stringify(dietary)).map(function(item) {
+    return {name: item};
+  });
+
+  req.user.pizza.dietary.forEach(function(userDietaryItem) {
+    allDietary.forEach(function(dietaryItem, index) {
+      if (dietaryItem.name == userDietaryItem) {
+        allDietary[index].checked = true;
+      }
+    });
+  });
+
   res.render('form', {
     title: 'Pizzafy',
     layout: 'layouts/profile',
-    toppings: allToppings
+    toppings: allToppings,
+    crusts: allCrusts,
+    dietary: allDietary,
+    notes: req.user.pizza.notes
   });
 });
 
@@ -124,7 +153,7 @@ app.post('/profile', passportConfig.isAuthenticated, function(req, res) {
 
   req.user.save();
 
-  res.end();
+  res.redirect('/profile');
 });
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
