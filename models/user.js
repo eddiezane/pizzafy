@@ -11,8 +11,16 @@ var userSchema = mongoose.Schema({
     firstName: String,
     lastName: String,
     phoneNumber: String,
-    pizzaNumber: Number,
     picture: String,
+  },
+
+  pizza: {
+    pizzaNumber: Number,
+    toppings: Array,
+    hates: Array,
+    crust: String,
+    dietary: Array,
+    notes: String
   },
 
   facebookId: String,

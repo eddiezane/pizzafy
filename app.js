@@ -18,6 +18,8 @@ var mongoose     = require('mongoose');
 var MongoStore   = require('connect-mongo')(session); 
 var Promise      = require('bluebird');
 
+var toppings     = require('./config/toppings.json');
+
 if (app.get('env') === 'development') {
     require('dotenv').load();
 }
@@ -64,6 +66,10 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.post('/test', function(req, res) {
+  console.log(req.body);
+  res.end();
+});
 
 app.get('/', function(req, res) {
   res.render('landing', {
@@ -89,10 +95,36 @@ app.get('/login', function(req, res) {
 });
 
 app.get('/profile', passportConfig.isAuthenticated, function(req, res) {
+  var allToppings = JSON.parse(JSON.stringify(toppings)).map(function(item) {
+    return {name: item};
+  });
+
+  req.user.pizza.toppings.forEach(function(favoriteTopping) {
+    allToppings.forEach(function(topping, index) {
+      if (topping.name == favoriteTopping) {
+        allToppings[index].checked = true;
+      }
+    });
+  });
+
   res.render('form', {
     title: 'Pizzafy',
-    layout: 'layouts/profile'
+    layout: 'layouts/profile',
+    toppings: allToppings
   });
+});
+
+app.post('/profile', passportConfig.isAuthenticated, function(req, res) {
+  req.user.pizza.pizzaNumber = parseInt(req.body.pizzaNumber);
+  req.user.pizza.toppings = req.body.toppings;
+  req.user.pizza.hates = req.body.hates;
+  req.user.pizza.crust = req.body.crust;
+  req.user.pizza.dietary = req.body.dietary;
+  req.user.pizza.notes = req.body.notes
+
+  req.user.save();
+
+  res.end();
 });
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
@@ -141,6 +173,10 @@ app.post('/auth/local/signup', function(req, res, next) {
 
 app.post('/auth/local/login', passport.authenticate('local', { failureRedirect: '/login' }), function(req, res) {
   res.redirect('/profile');
+});
+
+app.get('/api/toppings', function(req, res) {
+  res.json(toppings);
 });
 
 if (app.get('env') === 'development') {

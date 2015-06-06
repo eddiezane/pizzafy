@@ -11,167 +11,38 @@
 
   <!-- Need to be able to replace your photo here -->
 
-  <form class="form-horizontal">
+  <form action="" method="POST" id="profileForm" class="form-horizontal">
+    <input type="hidden" name="_csrf" value="{{_csrf}}">
     <h3>Basics</h3>
     <p>Tell us a little more about you, so we can better optimize your pizza experience!</p>
     <fieldset>
-      <!-- Date of birth -->
-      <div class="row basics">
-        <div class="dob col-md-6">
-          <label class="group-title control-label">Date of Birth</label>
-          <div class="control-group">
-            <label class="control-label" for="month">Month</label>
-            <div class="controls">
-              <input id="month" name="month" type="text" placeholder="MM" class="input-mini">
-            </div>
-          </div> <span class="dob-spacer">/</span>
-          <div class="control-group">
-            <label class="control-label" for="day">Day</label>
-            <div class="controls">
-              <input id="day" name="day" type="text" placeholder="DD" class="input-mini">
-            </div>
-          </div><span class="dob-spacer">/</span>
-          <div class="control-group">
-            <label class="control-label" for="year">Year</label>
-            <div class="controls">
-              <input id="year" name="year" type="text" placeholder="YY" class="input-mini">
-            </div>
-          </div>
-        </div>
-
-        <!-- Gender -->
-        <div class="gender col-md-6">
-          <label class="group-title control-label" for="gender">Gender</label>
-          <div class="control-group">
-            <div class="controls">
-              <label class="radio" for="gender-0">
-                <input type="radio" name="gender" id="gender-0" value="Male" checked="checked">
-                Male
-              </label>
-              <label class="radio" for="gender-1">
-                <input type="radio" name="gender" id="gender-1" value="Female">
-                Female
-              </label>
-              <label class="radio" for="gender-2">
-                <input type="radio" name="gender" id="gender-2" value="Other">
-                <input id="other" name="other" type="text" placeholder="Other" class="input-xlarge">
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Pizza Number -->
       <h3>Pizza Number</h3>
       <p>How many slices of pizza do you eat at the typical pizza party?</p>
       <div class="pizza-number-group row">
         <div class="control-group">
-          <label class="control-label" for="pizza-number">Slices</label>
+          <label class="control-label" for="pizzaNumber">Slices</label>
           <div class="controls">
-            <input id="pizza-number" name="pizza-number" type="text" placeholder="" class="input-mini" required="">
+            <input id="pizzaNumber" name="pizzaNumber" type="text" class="input-mini" value="{{user.pizza.pizzaNumber}}" required="">
           </div>
         </div>
       </div>
 
       <!-- Toppings Love -->
       <!-- This needs to be reorganized majorly, by type of topping -->
-      <h3> Toppings</h3>
+      <h3>Toppings</h3>
       <p>Tell us about the toppings you love and hate!</p>
       <div class="toppings-love row">
         <div class="control-group">
           <label class="control-label group-title" for="checkboxes">Loves</label>
           <div class="controls">
-            <label class="checkbox inline" for="checkboxes-0">
-              <input type="checkbox" name="checkboxes" id="checkboxes-0" value="Spinach">
-              Spinach
+
+            {{#each toppings}}
+            <label class="checkbox inline" for="checkboxes-{{@index}}">
+              <input type="checkbox" name="toppings" id="checkboxes-{{@index}}" value="{{this.name}}" class="toppings-item" {{#if this.checked}}checked="{{this.checked}}"{{/if}}>
+              {{this.name}}
             </label>
-            <label class="checkbox inline" for="checkboxes-1">
-              <input type="checkbox" name="checkboxes" id="checkboxes-1" value="Italian Sausage">
-              Italian Sausage
-            </label>
-            <label class="checkbox inline" for="checkboxes-4">
-              <input type="checkbox" name="checkboxes" id="checkboxes-4" value="Salami">
-              Salami
-            </label>
-            <label class="checkbox inline" for="checkboxes-5">
-              <input type="checkbox" name="checkboxes" id="checkboxes-5" value="Roasted Red Peppers">
-              Roasted Red Peppers
-            </label>
-            <label class="checkbox inline" for="checkboxes-6">
-              <input type="checkbox" name="checkboxes" id="checkboxes-6" value="Chicken">
-              Chicken
-            </label>
-            <label class="checkbox inline" for="checkboxes-7">
-              <input type="checkbox" name="checkboxes" id="checkboxes-7" value="Pineapple">
-              Pineapple
-            </label>
-            <label class="checkbox inline" for="checkboxes-8">
-              <input type="checkbox" name="checkboxes" id="checkboxes-8" value="Philly Steak">
-              Philly Steak
-            </label>
-            <label class="checkbox inline" for="checkboxes-9">
-              <input type="checkbox" name="checkboxes" id="checkboxes-9" value="Pepperoni">
-              Pepperoni
-            </label>
-            <label class="checkbox inline" for="checkboxes-10">
-              <input type="checkbox" name="checkboxes" id="checkboxes-10" value="Onions">
-              Onions
-            </label>
-            <label class="checkbox inline" for="checkboxes-11">
-              <input type="checkbox" name="checkboxes" id="checkboxes-11" value="Mushrooms">
-              Mushrooms
-            </label>
-            <label class="checkbox inline" for="checkboxes-12">
-              <input type="checkbox" name="checkboxes" id="checkboxes-12" value="Jalapeno Peppers">
-              Jalapeno Peppers
-            </label>
-            <label class="checkbox inline" for="checkboxes-13">
-              <input type="checkbox" name="checkboxes" id="checkboxes-13" value="Italian Sausage">
-              Italian Sausage
-            </label>
-            <label class="checkbox inline" for="checkboxes-15">
-              <input type="checkbox" name="checkboxes" id="checkboxes-15" value="Ham">
-              Ham
-            </label>
-            <label class="checkbox inline" for="checkboxes-17">
-              <input type="checkbox" name="checkboxes" id="checkboxes-17" value="Green Peppers">
-              Green Peppers
-            </label>
-            <label class="checkbox inline" for="checkboxes-18">
-              <input type="checkbox" name="checkboxes" id="checkboxes-18" value="Green Olives">
-              Green Olives
-            </label>
-            <label class="checkbox inline" for="checkboxes-22">
-              <input type="checkbox" name="checkboxes" id="checkboxes-22" value="Diced Tomatoes">
-              Diced Tomatoes
-            </label>
-            <label class="checkbox inline" for="checkboxes-24">
-              <input type="checkbox" name="checkboxes" id="checkboxes-24" value="Canadian Bacon">
-              Canadian Bacon
-            </label>
-            <label class="checkbox inline" for="checkboxes-25">
-              <input type="checkbox" name="checkboxes" id="checkboxes-25" value="Black Olives">
-              Black Olives
-            </label>
-            <label class="checkbox inline" for="checkboxes-26">
-              <input type="checkbox" name="checkboxes" id="checkboxes-26" value="Beef">
-              Beef
-            </label>
-            <label class="checkbox inline" for="checkboxes-27">
-              <input type="checkbox" name="checkboxes" id="checkboxes-27" value="Banana Peppers">
-              Banana Peppers
-            </label>
-            <label class="checkbox inline" for="checkboxes-28">
-              <input type="checkbox" name="checkboxes" id="checkboxes-28" value="Bacon">
-              Bacon
-            </label>
-            <label class="checkbox inline" for="checkboxes-29">
-              <input type="checkbox" name="checkboxes" id="checkboxes-29" value="Baby Portabella Mushrooms">
-              Baby Portabella Mushrooms
-            </label>
-            <label class="checkbox inline" for="checkboxes-30">
-              <input type="checkbox" name="checkboxes" id="checkboxes-30" value="Anchovies">
-              Anchovies
-            </label>
+            {{/each}}
+
           </div>
         </div>
       </div>
@@ -196,27 +67,27 @@
         <div class="control-group">
           <div class="controls">
             <label class="radio inline" for="radios-0">
-              <input type="radio" name="radios" id="radios-0" value="Thin crust" checked="checked">
+              <input type="radio" name="crust" id="radios-0" value="Thin crust" checked="checked">
               Thin crust
             </label>
             <label class="radio inline" for="radios-1">
-              <input type="radio" name="radios" id="radios-1" value="Regular crust">
+              <input type="radio" name="crust" id="radios-1" value="Regular crust">
               Regular crust
             </label>
             <label class="radio inline" for="radios-2">
-              <input type="radio" name="radios" id="radios-2" value="Deep dish">
+              <input type="radio" name="crust" id="radios-2" value="Deep dish">
               Deep dish
             </label>
             <label class="radio inline" for="radios-3">
-              <input type="radio" name="radios" id="radios-3" value="Neapolitan">
+              <input type="radio" name="crust" id="radios-3" value="Neapolitan">
               Neapolitan
             </label>
             <label class="radio inline" for="radios-4">
-              <input type="radio" name="radios" id="radios-4" value="Sicilian">
+              <input type="radio" name="crust" id="radios-4" value="Sicilian">
               Sicilian
             </label>
             <label class="radio inline" for="radios-5">
-              <input type="radio" name="radios" id="radios-5" value="No preference">
+              <input type="radio" name="crust" id="radios-5" value="No preference">
               No preference
             </label>
           </div>
@@ -229,16 +100,16 @@
       <div class="dietary row">
         <div class="control-group">
           <div class="controls">
-            <label class="checkbox" for="Dietary-0">
-              <input type="checkbox" name="Dietary" id="Dietary-0" value="Vegan">
+            <label class="checkbox" for="dietary-0">
+              <input type="checkbox" name="dietary" id="dietary-0" value="Vegan" class="dietary-item">
               Vegan
             </label>
-            <label class="checkbox" for="Dietary-1">
-              <input type="checkbox" name="Dietary" id="Dietary-1" value="Vegetarian">
+            <label class="checkbox" for="dietary-1">
+              <input type="checkbox" name="dietary" id="dietary-1" value="Vegetarian" class="dietary-item">
               Vegetarian
             </label>
-            <label class="checkbox" for="Dietary-2">
-              <input type="checkbox" name="Dietary" id="Dietary-2" value="Gluten-Free">
+            <label class="checkbox" for="dietary-2">
+              <input type="checkbox" name="dietary" id="dietary-2" value="Gluten-Free" class="dietary-item">
               Gluten-Free
             </label>
           </div>
@@ -258,13 +129,11 @@
       </div>
 
 
-
-
       <!-- submit -->
       <div class="control-group submit-div">
         <label class="control-label" for="submit"></label>
         <div class="controls">
-          <button id="submit" name="submit" class="btn btn-primary">Save changes</button>
+          <button id="profileSubmit" name="submit" class="btn btn-primary">Save changes</button>
         </div>
       </div>
 
