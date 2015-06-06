@@ -16,6 +16,7 @@ var errorHandler = require('errorhandler');
 var passport     = require('passport');
 var mongoose     = require('mongoose');
 var MongoStore   = require('connect-mongo')(session); 
+var crypto       = require('crypto');
 var Promise      = require('bluebird');
 
 var toppings     = require('./config/toppings.json');
@@ -191,7 +192,13 @@ app.post('/auth/local/signup', function(req, res, next) {
       return res.redirect('/');
     }
 
-    User.create({email: req.body.email, password: req.body.password}, function(err, user) {
+    User.create({
+      email: req.body.email,
+      password: req.body.password,
+      profile: {
+        picture: getGravatar(req.body.email)
+      }
+    }, function(err, user) {
       if (err) {
         console.error('Error creating local user', err);
       }
@@ -220,3 +227,10 @@ if (app.get('env') === 'development') {
 app.listen(app.get('port'), function() {
   console.log('listening on ' + app.get('port'));
 });
+
+function getGravatar(email, size) {
+  if (!size) size = 200;
+  if (!email) return 'https://gravatar.com/avatar/?s=' + size + '&d=retro';
+  var md5 = crypto.createHash('md5').update(email).digest('hex');
+  return 'https://gravatar.com/avatar/' + md5 + '?s=' + size + '&d=retro';
+};

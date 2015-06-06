@@ -27,7 +27,8 @@ var userSchema = mongoose.Schema({
   facebookToken: String,
 
   twitterId: String,
-  twitterToken: String
+  twitterToken: String,
+  twitterTokenSecret: String
 });
 
 userSchema.pre('save', function(next) {
@@ -36,11 +37,7 @@ userSchema.pre('save', function(next) {
   bcrypt.genSalt(10, function(err, salt) {
     if (err) return next(err);
     bcrypt.hash(user.password, salt, function(err, hash) {
-      console.log('AFTER HASH');
-      if (err) {
-        console.error('HASHING ERROR', err);
-        return next(err);
-      }
+      if (err) return next(err);
       user.password = hash;
       next();
     });

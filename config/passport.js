@@ -25,7 +25,6 @@ passport.use(new FacebookStrategy({
     if (err) return console.error(err);
 
     if (user) {
-      console.log('user!!', user);
       return done(err, user);
     } else {
 
@@ -53,13 +52,32 @@ passport.use(new TwitterStrategy({
   consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
   callbackURL: process.env.TWITTER_OAUTH_CALLBACK
 }, function(token, tokenSecret, profile, done) {
-  // User.findOrCreate({ twitterId: profile.id }, function (err, user) {
-  // return done(err, user);
-  // });
+  User.findOne({twitterId: profile.id}, function (err, user) {
+    if (err) return console.error(err);
+
+    if (user) {
+      return done(err, user);
+    } else {
+
+      User.create({
+        profile: {
+          displayName: profile.displayName,
+          firstName: profile.firstName,
+          lastName: profile.lastName,
+          picture: profile.picture || profile._json.profile_image_url_https
+        },
+
+        twitterId: profile.id,
+        twitterToken: token,
+        twitterTokenSecret: tokenSecret
+
+      }, function(err, user) {
+        return done(err, user);
+      });
+    }
+  });
   done(null, profile);
 }));
-
-
 
 passport.use(new LocalStrategy(
   function(email, password, done) {
