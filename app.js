@@ -154,6 +154,7 @@ app.post('/profile', passportConfig.isAuthenticated, function(req, res) {
   req.user.pizza.crust = req.body.crust;
   req.user.pizza.dietary = req.body.dietary;
   req.user.pizza.notes = req.body.notes
+  req.user.profile.displayName = req.body.firstName + req.body.lastName;
   req.user.profile.firstName = req.body.firstName;
   req.user.profile.lastName = req.body.lastName;
   req.user.email = req.user.email || req.body.email;
