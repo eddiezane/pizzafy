@@ -150,3 +150,7 @@ h4 {
 .navbar-nav > li > a:hover {
 	background: white;
 }
+
+.navbar-brand {
+	padding: 10px 15px;
+}
