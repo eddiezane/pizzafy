@@ -1,95 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <link rel="icon" href="../../favicon.ico">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
 
-  <title>Pizzafy</title>
-  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
-  <!-- Bootstrap core CSS -->
-  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <title>Pizzafy</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <!-- Bootstrap core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Dashboard theme CSS-->
-  <link href="/css/dashboard.css" rel="stylesheet">
+    <!-- Dashboard theme CSS-->
+    <link href="/css/dashboard.css" rel="stylesheet">
 
-  <!--Flat UI CSS-->
-  <link href="/vendor/flat-ui/dist/css/flat-ui.css" rel="stylesheet">
+    <!--Flat UI CSS-->
+    <link href="/vendor/flat-ui/dist/css/flat-ui.css" rel="stylesheet">
 
-  <!-- Alicia's custom CSS-->
-  <link href="/css/custom-home.css" rel="stylesheet">
+    <!-- Alicia's custom CSS-->
+    <link href="/css/custom-home.css" rel="stylesheet">
 
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
       <![endif]-->
-    </head>
+  </head>
 
   <body>
-  <div class="wrapper">
-    <nav class="navbar navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <!-- need to replace logo here -->
-          <a class="navbar-brand" href="/"><img src="/images/pizzafylogo-white.svg" alt="Pizzafy.me"/ ><h1>Pizzafy</h1></a>
+    <div class="wrapper">
+      <nav class="navbar navbar-fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <!-- need to replace logo here -->
+            <a class="navbar-brand" href="/"><img src="/images/pizzafylogo-white.svg" alt="Pizzafy.me"/ ><h1>Pizzafy</h1></a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="/login">Login</a></li>
+              <li><a href="http://twitter.com/pizzafy"><span class="fui-twitter"></span></a></li>
+            </ul>
+          </div>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="/login">Login</a></li>
-             <li><a href="http://twitter.com/pizzafy"><span class="fui-twitter"></span></a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+      </nav>
 
-   <!-- <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
+      <!-- <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
         <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Login</h4>
-          </div>
-          <div class="modal-body">
-            {{> socialSignUp}}
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Login</h4>
+        </div>
+        <div class="modal-body">
+        {{> socialSignUp}}
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+        </div>
+        </div> -->
+        <div class="centered">
+          <div class="wrap">
+            {{{body}}}
           </div>
         </div>
-      </div>
-    </div> -->
-    <div class="centered">
-    	<div class="wrap">
-       {{{body}}}
-     </div>
-   </div>
- </div> <!-- wrapper -->
- <!-- EDDIE!!! getting to 404s on the scripts below because I haven't downloaded them arghhh -->
+
+    </div> <!-- wrapper -->
+    <!-- EDDIE!!! getting to 404s on the scripts below because I haven't downloaded them arghhh -->
     <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="/vendor/js/ie10-viewport-bug-workaround.js"></script>
-    <script src="/vendor/flat-ui/dist/js/flat-ui.min.js"></script>
-    <script>
-      $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-        $(':checkbox').radiocheck();
-        $(':radio').radiocheck();
-      })
-    </script>
+      ================================================== -->
+      <!-- Placed at the end of the document so the pages load faster -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+      <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+      <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+      <script src="/vendor/js/ie10-viewport-bug-workaround.js"></script>
+      <script src="/vendor/flat-ui/dist/js/flat-ui.min.js"></script>
+      <script>
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+            $(':checkbox').radiocheck();
+          $(':radio').radiocheck();
+        })
+      </script>
+
+      <div id="startupbus_banner" data-company-id="55708ced144feed32e482e16"></div>
+      <script src="http://game.startupbus.com/js/widget.js"></script>
   </body>
-  </html>
+</html>
