@@ -127,3 +127,16 @@ h4 {
 		font-size: 12vw;
 	}
 }
+
+.tile {
+	padding: 6%;
+}
+
+.tile h1 {
+	color: inherit;
+	margin-top: 0;
+}
+
+.tile p {
+	text-align: left;
+}

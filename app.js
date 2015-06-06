@@ -81,6 +81,21 @@ app.get('/', function(req, res) {
   });
 });
 
+app.get('/about', function(req, res) {
+  res.render('about', {
+    title: 'Pizzafy',
+    layout: 'layouts/home'
+  });
+});
+
+app.get('/contact', function(req, res) {
+  res.render('contact', {
+    title: 'Pizzafy',
+    layout: 'layouts/home'
+  });
+});
+
+
 app.get('/logout', function(req, res) {
   req.logout();
   res.redirect('/');
