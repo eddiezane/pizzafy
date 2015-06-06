@@ -140,7 +140,10 @@ app.get('/profile', passportConfig.isAuthenticated, function(req, res) {
     toppings: allToppings,
     crusts: allCrusts,
     dietary: allDietary,
-    notes: req.user.pizza.notes
+    notes: req.user.pizza.notes,
+    firstName: req.user.profile.firstName,
+    lastName:req.user.profile.lastName,
+    email: req.user.email
   });
 });
 
@@ -151,6 +154,9 @@ app.post('/profile', passportConfig.isAuthenticated, function(req, res) {
   req.user.pizza.crust = req.body.crust;
   req.user.pizza.dietary = req.body.dietary;
   req.user.pizza.notes = req.body.notes
+  req.user.profile.firstName = req.body.firstName;
+  req.user.profile.lastName = req.body.lastName;
+  req.user.email = req.user.email || req.body.email;
 
   req.user.save();
 

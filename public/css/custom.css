@@ -41,6 +41,10 @@ img {
 	display: inline-block;
 }
 
+input:disabled, textarea:disabled {
+  background: #cfcfcf;
+}
+
 .page-title {
 	display: inline-block;
 	margin: 0 0 0 10px;

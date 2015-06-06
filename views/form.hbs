@@ -17,22 +17,31 @@
     <h3>Basics</h3>
     <p>Tell us a little more about you, so we can better optimize your pizza experience!</p>
 
+    <div class="email-name row">
+      <div class="control-group">
+        <label class="control-label group-title" for="hates">Email</label>
+        <div class="controls">
+          <input id="" name="email" type="email" placeholder="" class="input-xlarge" value="{{email}}" {{#if email}}disabled{{/if}} required="">
+        </div>
+      </div>
+    </div>
+
     <div class="first-name row">
-        <div class="control-group">
-          <label class="control-label group-title" for="hates">First Name</label>
-          <div class="controls">
-            <input id="" name="" type="text" placeholder="" class="input-xlarge">
-          </div>
+      <div class="control-group">
+        <label class="control-label group-title" for="hates">First Name</label>
+        <div class="controls">
+          <input id="" name="firstName" type="text" placeholder="" class="input-xlarge" value="{{firstName}}">
         </div>
       </div>
-      <div class="last-name row">
-        <div class="control-group">
-          <label class="control-label group-title" for="hates">Last Name</label>
-          <div class="controls">
-            <input id="" name="" type="text" placeholder="" class="input-xlarge">
-          </div>
+    </div>
+    <div class="last-name row">
+      <div class="control-group">
+        <label class="control-label group-title" for="hates">Last Name</label>
+        <div class="controls">
+          <input id="" name="lastName" type="text" placeholder="" class="input-xlarge" value="{{lastName}}">
         </div>
       </div>
+    </div>
 
     <fieldset>
       <h3>Pizza Number</h3>
