@@ -53,11 +53,17 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+app.use(validator());
 app.use(lusca({
   csrf: true,
   xframe: 'SAMEORIGIN',
   xssProtection: true
 }));
+app.use(function(req, res, next) {
+  res.locals.user = req.user;
+  next();
+});
+
 
 app.get('/', function(req, res) {
   res.render('landing', {
@@ -66,9 +72,14 @@ app.get('/', function(req, res) {
   });
 });
 
+app.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/');
+});
+
 app.get('/login', function(req, res) {
   if (req.user) {
-    res.redirect('/');
+    res.redirect('/profile');
   }
 
   res.render('socialLogin', {
@@ -77,28 +88,60 @@ app.get('/login', function(req, res) {
   });
 });
 
-app.get('/profile', function(req, res) {
+app.get('/profile', passportConfig.isAuthenticated, function(req, res) {
   res.render('form', {
     title: 'Pizzafy',
     layout: 'layouts/profile'
   });
 });
 
-app.post('signup', function(req, res) {
-  // Needs csrf
-  res.end();
-});
-
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', {failureRedirect: '/login'}), function(req, res) {
-  res.redirect('/');
+  res.redirect('/profile');
 });
 
 app.get('/auth/twitter', passport.authenticate('twitter'));
 app.get('/auth/twitter/callback', passport.authenticate('twitter', {failureRedirect: '/login'}), function(req, res) {
-  res.redirect('/');
+  res.redirect('/profile');
 });
 
+app.post('/auth/local/signup', function(req, res, next) {
+  req.assert('email', 'Email is not valid').isEmail();
+  req.assert('password', 'Password must be at least 4 characters long').len(4);
+  req.assert('passwordConfirmation', 'Passwords do not match').equals(req.body.password);
+
+  var errors = req.validationErrors();
+
+  if (errors) {
+    req.flash('errors', errors);
+    console.log('baaaaaaaaad', errors);
+    return res.redirect('/');
+  }
+
+  var user = new User({
+    email: req.body.email,
+    password: req.body.password
+  });
+
+  User.findOne({ email: req.body.email }, function(err, existingUser) {
+    if (existingUser) {
+      req.flash('errors', { msg: 'Account with that email address already exists.' });
+      return res.redirect('/');
+    }
+
+    user.save(function(err) {
+      if (err) return next(err);
+      req.logIn(user, function(err) {
+        if (err) return next(err);
+        res.redirect('/profile');
+      });
+    });
+  });
+});
+
+app.post('/auth/local/login', passport.authenticate('local', { failureRedirect: '/login' }), function(req, res) {
+  res.redirect('/profile');
+});
 
 if (app.get('env') === 'development') {
   app.use(errorHandler());
