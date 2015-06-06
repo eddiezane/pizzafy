@@ -1,9 +1,26 @@
-<form action="" method="POST">
-  <label for="">Email</label>
-  <input type="email">
+<div class="login-form">
+  <!-- <a href="/auth/twitter" class="btn btn-block btn-lg btn-info">Join With Twitter</a> -->
 
-  <label for="">Password</label>
-  <input type="password">
-</form>
+  <div class="login-form">
+    <div class="form-group">
+      <a href="/auth/facebook" class="btn btn-block btn-lg btn-primary" style="width: 100%">Login With Facebook</a>
+    </div>
 
-{{> socialSignUp}}
+    <form action="/auth/local/login" method="POST">
+      <div class="form-group">
+        <input type="email" name="email" class="form-control login-field" value="" placeholder="Enter your email" id="login-name" />
+        <label class="login-field-icon fui-user" for="login-name"></label>
+      </div>
+
+      <div class="form-group">
+        <input type="password" name="password" class="form-control login-field" value="" placeholder="Password" id="login-pass" />
+        <label class="login-field-icon fui-lock" for="login-pass"></label>
+      </div>
+
+      <input type="hidden" name="_csrf" value={{_csrf}}>
+
+      <button type="submit" id="submit" name="submit" class="btn btn-block btn-lg btn-inverse">Log in</button>
+    </form>
+  </div>
+</div>
+</div>

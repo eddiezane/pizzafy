@@ -106,7 +106,7 @@ app.get('/login', function(req, res) {
     return res.redirect('/profile');
   }
 
-  res.render('socialLogin', {
+  res.render('login', {
     title: 'Pizzafy',
     layout: 'layouts/home'
   });
