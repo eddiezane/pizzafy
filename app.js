@@ -153,6 +153,8 @@ app.post('/profile', passportConfig.isAuthenticated, function(req, res) {
 
   req.user.save();
 
+  req.flash('success', {msg: 'Succuessfully Updated!'});
+
   res.redirect('/profile');
 });
 
@@ -179,23 +181,26 @@ app.post('/auth/local/signup', function(req, res, next) {
     return res.redirect('/');
   }
 
-  var user = new User({
-    email: req.body.email,
-    password: req.body.password
-  });
-
   User.findOne({ email: req.body.email }, function(err, existingUser) {
+    if (err) {
+      console.error('BAAAAAAAAAD', err);
+    }
+
     if (existingUser) {
       req.flash('errors', { msg: 'Account with that email address already exists.' });
       return res.redirect('/');
     }
 
-    user.save(function(err) {
-      if (err) return next(err);
+    User.create({email: req.body.email, password: req.body.password}, function(err, user) {
+      if (err) {
+        console.error('Error creating local user', err);
+      }
+
       req.logIn(user, function(err) {
-        if (err) return next(err);
-        res.redirect('/profile');
+        if (err) { return next(err); }
+        return res.redirect('/profile');
       });
+
     });
   });
 });
