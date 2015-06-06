@@ -140,3 +140,13 @@ h4 {
 .tile p {
 	text-align: left;
 }
+
+@media (max-width: 767px) {
+.navbar-nav > li > a {
+	background: black;
+	border-bottom: 1px solid;
+}
+}
+.navbar-nav > li > a:hover {
+	background: white;
+}
