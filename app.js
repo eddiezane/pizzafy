@@ -88,7 +88,7 @@ app.get('/logout', function(req, res) {
 
 app.get('/login', function(req, res) {
   if (req.user) {
-    res.redirect('/profile');
+    return res.redirect('/profile');
   }
 
   res.render('socialLogin', {
