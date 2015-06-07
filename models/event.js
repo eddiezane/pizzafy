@@ -1,12 +1,12 @@
 var mongoose = require('mongoose');
 
 var eventSchema = mongoose.Schema({
-  host: {type: mongoose.Schema.Types.ObjectId, ref: 'user'},
-  url: String,
-  attendees: [{type: mongoose.Schema.Types.ObjectId, ref: 'user'}],
   name: String,
+  host: {type: mongoose.Schema.Types.ObjectId, ref: 'user'},
+  webhookUrl: String,
+  attendees: [{type: mongoose.Schema.Types.ObjectId, ref: 'user'}],
   address: String,
-  data: Date
+  date: Date
 });
 
 eventSchema.methods.addAttendee = function(user, cb) {

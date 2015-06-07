@@ -15,8 +15,9 @@ var lusca        = require('lusca');
 var errorHandler = require('errorhandler');
 var passport     = require('passport');
 var mongoose     = require('mongoose');
-var MongoStore   = require('connect-mongo')(session); 
+var MongoStore   = require('connect-mongo')(session);
 var crypto       = require('crypto');
+var uuid         = require('node-uuid');
 var Promise      = require('bluebird');
 
 var toppings     = require('./config/toppings.json');
@@ -42,6 +43,21 @@ app.engine('hbs', hbs.express4({
 app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
 
+hbs.registerHelper('grouped_each', function(every, context, options) {
+  var out = "", subcontext = [], i;
+  if (context && context.length > 0) {
+    for (i = 0; i < context.length; i++) {
+      if (i > 0 && i % every === 0) {
+        out += options.fn(subcontext);
+        subcontext = [];
+      }
+      subcontext.push(context[i]);
+    }
+    out += options.fn(subcontext);
+  }
+  return out;
+});
+
 var passportConfig = require('./config/passport.js');
 
 app.use(express.static('public'));
@@ -60,11 +76,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use(validator());
-app.use(lusca({
-  csrf: true,
-  xframe: 'SAMEORIGIN',
-  xssProtection: true
-}));
+// app.use(lusca({
+  // csrf: true,
+  // xframe: 'SAMEORIGIN',
+  // xssProtection: true
+// }));
 app.use(function(req, res, next) {
   res.locals.user = req.user;
   next();
@@ -269,9 +285,27 @@ app.get('/api/events', passportConfig.isAuthenticated, function(req, res) {
 
 // app.get('/profile/events', passportConfig.isAuthenticated, function(req, res) {
 app.get('/profile/events', function(req, res) {
-  res.render('profile/events', {
-    title: 'Pizzafy',
-    layout: 'layouts/profile'
+  var eventIds = req.user.events;
+
+  Event.find({
+    '_id': { 
+      $in: eventIds
+    }
+  }, function(err, events) {
+    if (err) console.error('BAAAAAAAAAAAAAA', err);
+
+    events.forEach(function(event) {
+      if (req.user._id.toString() != event.host.toString()) {
+        event.host = null;
+      }
+    });
+    
+
+    res.render('profile/events', {
+      title: 'Pizzafy',
+      layout: 'layouts/profile',
+      events: events
+    });
   });
 });
 
@@ -285,21 +319,76 @@ app.get('/profile/events/new', function(req, res) {
 
 // app.get('/profile/events/:id', passportConfig.isAuthenticated, function(req, res) {
 app.get('/profile/events/:id', function(req, res) {
-  res.render('profile/singleEvent', {
-    title: 'Pizzafy',
-    layout: 'layouts/profile'
+  Event.findById(req.params.id, function(err, event) {
+    if (err) {
+      req.flash('error', {msg: err});
+      return res.redirect('/profile/events');
+    }
+
+    if (!event) {
+      req.flash('error', {msg: 'Event not found!'});
+      return res.redirect('/profile/events');
+    }
+
+    User.find({
+      '_id': { 
+        $in: event.attendees
+      }
+    }, function(err, attendees) {
+      if (err) console.error('BAAAAAAAAAAAAAA', err);
+      res.render('profile/singleEvent', {
+        title: 'Pizzafy',
+        layout: 'layouts/profile',
+        event: event,
+        attendees: attendees,
+        webhookHost: process.env.PIZZAFY_WEBHOOK_HOST
+      });
+    });
+
   });
 });
 
 app.post('/profile/events', passportConfig.isAuthenticated, function(req, res) {
+  req.assert('eventName', 'Event name is required').notEmpty();
+
+  var errors = req.validationErrors();
+
+  if (errors) {
+    req.flash('errors', errors);
+    return res.redirect('/profile/events/new');
+  }
+
   var user = req.user;
+
   var event = new Event();
+  event.name = req.body.eventName;
   event.host = user._id;
   event.attendees.push(user._id);
+  event.webhookUrl = uuid.v4();
   event.save();
+
   user.events.push(event._id);
   user.save();
-  res.json(event);
+
+  req.flash('success', 'Event created!');
+  res.redirect('/profile/events');
+});
+
+app.post('/webhooks/eventbrite/:id', function(req, res) {
+  res.end();
+
+  Event.findOne({webhookUrl: req.params.id}, function(err, event) {
+    if (event) {
+      User.findOne({email: req.body.email}, function(err, user) {
+        if (user) {
+          user.update({$addToSet: {events: event._id}}, null, function(err, _) {
+            event.update({$addToSet: {attendees: user._id}}, null, function(err, _) {
+            });
+          });
+        }
+      });
+    }
+  });
 });
 
 if (app.get('env') === 'development') {

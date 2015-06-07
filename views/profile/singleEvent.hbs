@@ -2,12 +2,12 @@
   {{> flash}}
 
   <div class="row page-header">
-    <h1 class="page-title">Sam's Birthday Party <span class="label label-warning">Host</span></h1> 
+    <h1 class="page-title">{{event.name}} <span class="label label-warning">Host</span></h1> 
   </div>
 
    <div class="event-webhook">
     <h6><strong>Eventbrite Web Hook</strong></h6>
-    <textarea placeholder="" class="input-xlarge" value="" disabled></textarea>
+    <textarea placeholder="" class="input-xlarge" value="" disabled>{{webhookHost}}{{event.webhookUrl}}</textarea>
   </div>
 
   <div class="event-details">
@@ -19,16 +19,9 @@
   <div class="event-attendees">
     <h3>Who's Coming</h3>
     <ul>
-      <li>
-      <img src="https://graph.facebook.com/3574906211688/picture?type=large" class="profile-pic" alt="Alicia Hurst | Pizzafy" data-toggle="tooltip" data-placement="top" title="Alicia" /> 
-      </li>
-      <li><img src="https://graph.facebook.com/3574906211688/picture?type=large" class="profile-pic" alt="Alicia Hurst | Pizzafy" data-toggle="tooltip" data-placement="top" title="Alicia" /> </li>
-      <li><img src="https://graph.facebook.com/3574906211688/picture?type=large" class="profile-pic" alt="Alicia Hurst | Pizzafy" data-toggle="tooltip" data-placement="top" title="Alicia" /> </li>
-      <li><img src="https://graph.facebook.com/3574906211688/picture?type=large" class="profile-pic" alt="Alicia Hurst | Pizzafy" data-toggle="tooltip" data-placement="top" title="Alicia" /> </li>
-      <li><img src="https://graph.facebook.com/3574906211688/picture?type=large" class="profile-pic" alt="Alicia Hurst | Pizzafy" data-toggle="tooltip" data-placement="top" title="Alicia" /> </li>
-      <li><img src="https://graph.facebook.com/3574906211688/picture?type=large" class="profile-pic" alt="Alicia Hurst | Pizzafy" data-toggle="tooltip" data-placement="top" title="Alicia" /> </li>
-      <li><img src="https://graph.facebook.com/3574906211688/picture?type=large" class="profile-pic" alt="Alicia Hurst | Pizzafy" data-toggle="tooltip" data-placement="top" title="Alicia" /> </li>
-      <li><img src="https://graph.facebook.com/3574906211688/picture?type=large" class="profile-pic" alt="Alicia Hurst | Pizzafy" data-toggle="tooltip" data-placement="top" title="Alicia" /> </li>
+      {{#each attendees}}
+      <li><img src="{{this.profile.picture}}" class="profile-pic" alt="{{this.profile.displayName}} | Pizzafy" data-toggle="tooltip" data-placement="top" title="{{this.profile.firstName}}" /> </li>
+      {{/each}}
     </ul>
   </div>
 

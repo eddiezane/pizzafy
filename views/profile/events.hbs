@@ -7,24 +7,23 @@
 
   </div>
 
-<div class="row demo-tiles">
-        <div class="col-xs-3">
-          <div class="tile">
-            <h3 class="tile-title"><a href="#">Sam's Birthday Party</a></h3>
-            <p><span class="label label-warning">Host</span></p>
-            <p>Date</p>
-            <a class="btn btn-primary btn-large btn-block" href="#">View Event</a>
-          </div>
-        </div>
-
-        <div class="col-xs-3">
-          <div class="tile">
-            <h3 class="tile-title"><a href="#">Joe's Jam Session</a></h3>
-            <p><span class="label label-info">Guest</span></p>
-            <p>Date</p>
-            <a class="btn btn-primary btn-large btn-block" href="#">View Event</a>
-          </div>
-        </div>
-</div>
+  {{#grouped_each 4 events}}
+  <div class="row demo-tiles">
+    {{#each this }}
+    <div class="col-xs-3">
+      <div class="tile">
+        <h3 class="tile-title"><a href="/profile/events/{{_id}}">{{name}}</a></h3>
+        {{#if host}}
+        <p><span class="label label-warning">Host</span></p>
+        {{else}}
+        <p><span class="label label-info">Guest</span></p>
+        {{/if}}
+        <p>Date</p>
+        <a class="btn btn-primary btn-large btn-block" href="/profile/events/{{_id}}">View Event</a>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+  {{/grouped_each}}
 
 </div> <!--cols main-->
