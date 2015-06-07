@@ -139,3 +139,22 @@ h3:first-of-type {
 	margin-top: 3rem;
 	margin-bottom: 6rem;
 }
+
+.event-attendees ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.event-attendees li {
+	display: inline-block;
+}
+
+.event-attendees img {
+	height: 60px;
+	width: auto;
+}
+
+.event-webhook textarea {
+	width: 75%;
+}
