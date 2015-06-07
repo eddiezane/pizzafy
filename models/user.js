@@ -6,6 +6,8 @@ var userSchema = mongoose.Schema({
   email: {type: String, lowercase: true},
   password: String,
 
+  events: [{type: mongoose.Schema.Types.ObjectId, ref: 'event'}],
+
   profile: {
     displayName: String,
     firstName: String,

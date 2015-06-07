@@ -33,6 +33,7 @@ Promise.promisifyAll(mongoose);
 mongoose.connect(process.env.MONGOLAB_URI);
 
 var User = require('./models/user.js');
+var Event = require('./models/event.js');
 
 app.set('port', process.env.PORT || 3000);
 app.engine('hbs', hbs.express4({
@@ -149,7 +150,7 @@ app.get('/profile', passportConfig.isAuthenticated, function(req, res) {
     });
   });
 
-  res.render('form', {
+  res.render('profile/form', {
     title: 'Pizzafy',
     layout: 'layouts/profile',
     toppings: allToppings,
@@ -240,6 +241,38 @@ app.post('/auth/local/login', passport.authenticate('local', { failureRedirect: 
 
 app.get('/api/toppings', function(req, res) {
   res.json(toppings);
+});
+
+app.get('/api/events', passportConfig.isAuthenticated, function(req, res) {
+  res.json(req.user.events);
+});
+
+app.post('/api/events', passportConfig.isAuthenticated, function(req, res) {
+  var user = req.user;
+
+  var event = new Event();
+  event.host = user._id;
+  event.attendees.push(user._id);
+  event.save();
+  user.events.push(event._id);
+  user.save();
+  res.json(event);
+});
+
+// app.get('/profile/events', passportConfig.isAuthenticated, function(req, res) {
+app.get('/profile/events', function(req, res) {
+  res.render('profile/events', {
+    title: 'Pizzafy',
+    layout: 'layouts/profile'
+  });
+});
+
+// app.get('/profile/events/new', passportConfig.isAuthenticated, function(req, res) {
+app.get('/profile/events/new', function(req, res) {
+  res.render('profile/newEvent', {
+    title: 'Pizzafy',
+    layout: 'layouts/profile'
+  });
 });
 
 if (app.get('env') === 'development') {
