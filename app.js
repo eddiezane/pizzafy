@@ -267,6 +267,14 @@ app.get('/profile/events', function(req, res) {
   });
 });
 
+// app.get('/profile/events/:id', passportConfig.isAuthenticated, function(req, res) {
+app.get('/profile/events/:id', function(req, res) {
+  res.render('profile/singleEvent', {
+    title: 'Pizzafy',
+    layout: 'layouts/profile'
+  });
+});
+
 // app.get('/profile/events/new', passportConfig.isAuthenticated, function(req, res) {
 app.get('/profile/events/new', function(req, res) {
   res.render('profile/newEvent', {
