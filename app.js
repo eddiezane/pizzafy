@@ -381,13 +381,13 @@ app.post('/webhooks/eventbrite/:id', function(req, res) {
   request.get({
     url: req.body.api_url,
     headers: {
-      authorization: "Bearer OJOYXUTRBNJRPLOT5X"
+      authorization: "Bearer " + process.env.EVENTBRITE_KEY
     }
   }, function(err, resp, body) {
 
     Event.findOne({webhookUrl: req.params.id}, function(err, event) {
       if (event) {
-        User.findOne({email: body.email}, function(err, user) {
+        User.findOne({email: JSON.parse(body).email}, function(err, user) {
           if (user) {
             user.update({$addToSet: {events: event._id}}, null, function(err, _) {
               event.update({$addToSet: {attendees: user._id}}, null, function(err, _) {

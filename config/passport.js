@@ -3,6 +3,7 @@ var mongoose         = require('mongoose');
 var User             = require('../models/user.js');
 var LocalStrategy    = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
+var MeetupStrategy   = require('passport-meetup').Strategy;
 // var TwitterStrategy  = require('passport-twitter').Strategy;
 
 passport.serializeUser(function(user, done) {
