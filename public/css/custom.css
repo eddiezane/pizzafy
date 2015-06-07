@@ -176,8 +176,8 @@ h3:first-of-type {
 .caption h3 {
 	margin-top: 0;
 }
+
 .full-circle {
-    background-color: #5BC0DE;
     height:150px;
     width:150px;
     display: inline-block;
@@ -186,7 +186,6 @@ h3:first-of-type {
 }
 
 .half-circle {
-    background-color: #337AB7;
     height:150px;
     width: 75px;
     -moz-border-radius: 150px 0 0 150px;
@@ -196,7 +195,6 @@ h3:first-of-type {
 }
 
 .half-circle-2 {
-    background-color: #5BC0DE;
     height:150px;
     width: 75px;
    border-radius: 0 150px 150px 0;
@@ -204,6 +202,13 @@ h3:first-of-type {
     display: inline-block;
 }
 
+.half-circle, .caption .label-primary {
+	background-color: #E67E22
+}
+
+.full-circle, .half-circle-2, .caption .label-info {
+	background-color: #E74C3C
+}
 .pizza-count {
 	padding: 5px 10px;
 	background: white;
