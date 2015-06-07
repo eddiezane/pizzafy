@@ -2,7 +2,11 @@ var mongoose = require('mongoose');
 
 var eventSchema = mongoose.Schema({
   host: {type: mongoose.Schema.Types.ObjectId, ref: 'user'},
-  attendees: [String],
+  url: String,
+  attendees: [{type: mongoose.Schema.Types.ObjectId, ref: 'user'}],
+  name: String,
+  address: String,
+  data: Date
 });
 
 eventSchema.methods.addAttendee = function(user, cb) {
