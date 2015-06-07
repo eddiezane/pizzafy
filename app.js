@@ -18,6 +18,7 @@ var mongoose     = require('mongoose');
 var MongoStore   = require('connect-mongo')(session);
 var crypto       = require('crypto');
 var uuid         = require('node-uuid');
+var request      = require('request');
 var Promise      = require('bluebird');
 
 var toppings     = require('./config/toppings.json');
@@ -377,18 +378,28 @@ app.post('/profile/events', passportConfig.isAuthenticated, function(req, res) {
 app.post('/webhooks/eventbrite/:id', function(req, res) {
   res.end();
 
-  Event.findOne({webhookUrl: req.params.id}, function(err, event) {
-    if (event) {
-      User.findOne({email: req.body.email}, function(err, user) {
-        if (user) {
-          user.update({$addToSet: {events: event._id}}, null, function(err, _) {
-            event.update({$addToSet: {attendees: user._id}}, null, function(err, _) {
-            });
-          });
-        }
-      });
+  request.get({
+    url: req.body.api_url,
+    headers: {
+      authorization: "Bearer OJOYXUTRBNJRPLOT5X"
     }
+  }, function(err, resp, body) {
+
+    Event.findOne({webhookUrl: req.params.id}, function(err, event) {
+      if (event) {
+        User.findOne({email: body.email}, function(err, user) {
+          if (user) {
+            user.update({$addToSet: {events: event._id}}, null, function(err, _) {
+              event.update({$addToSet: {attendees: user._id}}, null, function(err, _) {
+              });
+            });
+          }
+        });
+      }
+    });
+
   });
+
 });
 
 if (app.get('env') === 'development') {
