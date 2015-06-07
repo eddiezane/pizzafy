@@ -1,1 +1,30 @@
-<h1>YOO</h1>
+<div class="col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 main profile">
+  {{> flash}}
+
+  <div class="row page-header">
+
+    <h1 class="page-title">{{#if user.profile.firstName}}{{user.profile.firstName}}'s{{else}}My{{/if}} Events</h1>
+
+  </div>
+
+<div class="row demo-tiles">
+        <div class="col-xs-3">
+          <div class="tile">
+            <h3 class="tile-title"><a href="#">Sam's Birthday Party</a></h3>
+            <p><span class="label label-warning">Host</span></p>
+            <p>Date</p>
+            <a class="btn btn-primary btn-large btn-block" href="#">View Event</a>
+          </div>
+        </div>
+
+        <div class="col-xs-3">
+          <div class="tile">
+            <h3 class="tile-title"><a href="#">Joe's Jam Session</a></h3>
+            <p><span class="label label-info">Guest</span></p>
+            <p>Date</p>
+            <a class="btn btn-primary btn-large btn-block" href="#">View Event</a>
+          </div>
+        </div>
+</div>
+
+</div> <!--cols main-->
