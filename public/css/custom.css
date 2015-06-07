@@ -158,3 +158,71 @@ h3:first-of-type {
 .event-webhook textarea {
 	width: 75%;
 }
+
+.thumbnail {
+	border: 0;
+	background: #f7f7f7;
+}
+
+.pizza-container {
+	text-align: center;
+	padding-top: 1rem;
+}
+
+.caption {
+	text-align: center;
+}
+
+.caption h3 {
+	margin-top: 0;
+}
+.full-circle {
+    background-color: #5BC0DE;
+    height:150px;
+    width:150px;
+    display: inline-block;
+    -webkit-border-radius:75px;
+    -moz-border-radius:75px;
+}
+
+.half-circle {
+    background-color: #337AB7;
+    height:150px;
+    width: 75px;
+    -moz-border-radius: 150px 0 0 150px;
+    border-radius: 150px 0 0 150px;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.half-circle-2 {
+    background-color: #5BC0DE;
+    height:150px;
+    width: 75px;
+   border-radius: 0 150px 150px 0;
+    border-radius: 0 150px 150px 0;
+    display: inline-block;
+}
+
+.pizza-count {
+	padding: 5px 10px;
+	background: white;
+	margin-left: 10px;
+}
+
+.food-thought .label-default {
+	background: transparent;
+	border: 1px solid;
+	margin-left: 10px;
+	color: inherit;
+}
+
+.bottom {
+	border-top: 1px solid;
+	padding: 2rem 0 6rem;
+	margin-top: 4rem;
+}
+
+.label-empty, .diet-empty {
+	visibility: hidden;
+}
