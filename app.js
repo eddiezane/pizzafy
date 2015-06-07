@@ -96,7 +96,6 @@ app.get('/contact', function(req, res) {
   });
 });
 
-
 app.get('/logout', function(req, res) {
   req.logout();
   res.redirect('/');
@@ -235,8 +234,29 @@ app.post('/auth/local/signup', function(req, res, next) {
   });
 });
 
-app.post('/auth/local/login', passport.authenticate('local', { failureRedirect: '/login' }), function(req, res) {
-  res.redirect('/profile');
+app.post('/auth/local/login', function(req, res, next) {
+  req.assert('email', 'Email is not valid').isEmail();
+  req.assert('password', 'Password cannot be blank').notEmpty();
+
+  var errors = req.validationErrors();
+
+  if (errors) {
+    req.flash('errors', errors);
+    return res.redirect('/login');
+  }
+
+  passport.authenticate('local', function(err, user, info) {
+    if (err) return next(err);
+    if (!user) {
+      req.flash('errors', { msg: info.message });
+      return res.redirect('/login');
+    }
+    req.logIn(user, function(err) {
+      if (err) return next(err);
+      req.flash('success', { msg: 'Success! You are logged in.' });
+      res.redirect('/profile');
+    });
+  })(req, res, next);
 });
 
 app.get('/api/toppings', function(req, res) {
@@ -245,18 +265,6 @@ app.get('/api/toppings', function(req, res) {
 
 app.get('/api/events', passportConfig.isAuthenticated, function(req, res) {
   res.json(req.user.events);
-});
-
-app.post('/api/events', passportConfig.isAuthenticated, function(req, res) {
-  var user = req.user;
-
-  var event = new Event();
-  event.host = user._id;
-  event.attendees.push(user._id);
-  event.save();
-  user.events.push(event._id);
-  user.save();
-  res.json(event);
 });
 
 // app.get('/profile/events', passportConfig.isAuthenticated, function(req, res) {
@@ -281,6 +289,17 @@ app.get('/profile/events/:id', function(req, res) {
     title: 'Pizzafy',
     layout: 'layouts/profile'
   });
+});
+
+app.post('/profile/events', passportConfig.isAuthenticated, function(req, res) {
+  var user = req.user;
+  var event = new Event();
+  event.host = user._id;
+  event.attendees.push(user._id);
+  event.save();
+  user.events.push(event._id);
+  user.save();
+  res.json(event);
 });
 
 if (app.get('env') === 'development') {

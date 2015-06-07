@@ -3,7 +3,7 @@ var mongoose         = require('mongoose');
 var User             = require('../models/user.js');
 var LocalStrategy    = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
-var TwitterStrategy  = require('passport-twitter').Strategy;
+// var TwitterStrategy  = require('passport-twitter').Strategy;
 
 passport.serializeUser(function(user, done) {
   done(null, user.id);
@@ -47,50 +47,52 @@ passport.use(new FacebookStrategy({
   });
 }));
 
-passport.use(new TwitterStrategy({
-  consumerKey: process.env.TWITTER_CONSUMER_KEY,
-  consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-  callbackURL: process.env.TWITTER_OAUTH_CALLBACK
-}, function(token, tokenSecret, profile, done) {
-  User.findOne({twitterId: profile.id}, function (err, user) {
-    if (err) return console.error(err);
+// passport.use(new TwitterStrategy({
+  // consumerKey: process.env.TWITTER_CONSUMER_KEY,
+  // consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
+  // callbackURL: process.env.TWITTER_OAUTH_CALLBACK
+// }, function(token, tokenSecret, profile, done) {
+  // User.findOne({twitterId: profile.id}, function (err, user) {
+    // if (err) return console.error(err);
 
-    if (user) {
-      return done(err, user);
-    } else {
+    // if (user) {
+      // return done(err, user);
+    // } else {
 
-      User.create({
-        profile: {
-          displayName: profile.displayName,
-          firstName: profile.firstName,
-          lastName: profile.lastName,
-          picture: profile.picture || profile._json.profile_image_url_https
-        },
+      // User.create({
+        // profile: {
+          // displayName: profile.displayName,
+          // firstName: profile.firstName,
+          // lastName: profile.lastName,
+          // picture: profile.picture || profile._json.profile_image_url_https
+        // },
 
-        twitterId: profile.id,
-        twitterToken: token,
-        twitterTokenSecret: tokenSecret
+        // twitterId: profile.id,
+        // twitterToken: token,
+        // twitterTokenSecret: tokenSecret
 
-      }, function(err, user) {
-        return done(err, user);
-      });
-    }
+      // }, function(err, user) {
+        // return done(err, user);
+      // });
+    // }
+  // });
+  // done(null, profile);
+// }));
+
+passport.use(new LocalStrategy({usernameField: 'email'}, function(email, password, done) {
+  email = email.toLowerCase();
+  User.findOne({email: email}, function(err, user) {
+    if (!user) return done(null, false, { message: 'Email ' + email + ' not found'});
+    user.comparePassword(password, function(err, isMatch) {
+      if (isMatch) {
+        return done(null, user);
+      } else {
+        return done(null, false, { message: 'Invalid email or password.' });
+      }
+    });
   });
-  done(null, profile);
 }));
 
-passport.use(new LocalStrategy(
-  function(email, password, done) {
-    console.log('insside local auth');
-    User.findOne({email: email}, function (err, user) {
-      console.log('user', user);
-      if (err) { return done(err); }
-      if (!user) { return done(null, false); }
-      if (!user.verifyPassword(password)) { return done(null, false); }
-      return done(null, user);
-    });
-  }
-));
 
 exports.isAuthenticated = function(req, res, next) {
   if (req.isAuthenticated()) return next();
