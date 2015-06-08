@@ -242,3 +242,57 @@ h3:first-of-type {
 .label-empty, .diet-empty {
 	visibility: hidden;
 }
+
+body {
+	position: relative;
+}
+
+.navbar {
+	z-index: -1;
+}
+.success {
+	position: fixed;
+	min-height: 100vh;
+	width: 100%;
+	top: 0;
+	left: 0;
+	background: rgba(0,0,0,0.8);
+	z-index: 9999;
+	color: white;
+	padding: 10% 20%;
+	text-align: center;
+}
+
+.success h1, .success h3, .success h4 {
+	text-align: center;
+}
+
+.success h1 {
+	font-size: 8vw;
+	letter-spacing: 3px;
+	color: #2ECC71;
+}
+
+.x-success {
+	position: absolute;
+	right: 20%;
+	top: 0;
+	font-size: 8vw;
+}
+
+.x-success a {
+	color: #3498DB;
+}
+
+.success-btn {
+	background-color: #3498DB !important;
+	display: inline-block;
+	width: auto;
+	margin-top: 4rem;
+}
+
+@media (max-width: 1000px) {
+	.success {
+		position: absolute;
+	}
+}
