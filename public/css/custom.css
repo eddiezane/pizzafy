@@ -224,8 +224,19 @@ h3:first-of-type {
 
 .bottom {
 	border-top: 1px solid;
-	padding: 2rem 0 6rem;
+	padding: 2rem 0;
 	margin-top: 4rem;
+}
+
+.buy-now {
+	text-align: center;
+	margin: 0 auto;
+	padding-bottom: 6rem;
+}
+
+.buy-btn {
+	max-width: 300px;
+	margin: 0 auto;
 }
 
 .label-empty, .diet-empty {
