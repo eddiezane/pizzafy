@@ -38,7 +38,7 @@ body {
 }
 
 .centered {
-  margin: 5rem auto;
+	margin: 5rem auto;
 }
 
 .wrap {
@@ -49,6 +49,11 @@ body {
 .centered h1, .centered h4 {
 	color: white;
 	font-weight: normal;
+}
+
+.landing-h1 {
+	font-size: 5.5rem;
+	text-align: center;
 }
 
 h4 {
@@ -86,9 +91,9 @@ h4 {
 }
 
 #startupbus_banner {
-  background: white;
-  text-align: center;
-  padding: 6% 0;
+	background: white;
+	text-align: center;
+	padding: 6% 0;
 }
 
 #startupbus_banner img {
