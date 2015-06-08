@@ -1,6 +1,19 @@
-<ul>
-  {{#each events}}
-    {{this.name}}
-    <a href="{{this.url}}">{{this.url}}</a>
-  {{/each}}
-</ul>
+<div class="col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 main profile">
+  <div class="row">
+
+    <p>Please select the Eventbrite event you would like to associate with this Pizzafy event.</p>
+
+    <ul class="list-unstyled">
+      {{#each events}}
+      <li>
+        <a href="{{this.url}}">{{this.name}}</a>
+        <a href="/profile/connect/eventbrite/{{this.id}}?eventId={{../eventId}}">
+          <button href="" class="btn btn-warning">Select</button>
+        </a>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</div>
+
+<!-- <a href="/profile/connect/eventbrite/{{this.id}}?eventId={{../eventId}}" data-event-id="{{this.id}}" class="add-event btn btn-warning">Choose Event</a> -->

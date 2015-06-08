@@ -382,7 +382,7 @@ app.post('/profile/events', passportConfig.isAuthenticated, function(req, res) {
   user.events.push(event._id);
   user.save();
 
-  req.flash('success', 'Event created!');
+  req.flash('success', {msg: 'Event ' + event.name + ' created!'});
   res.redirect('/profile/events');
 });
 
@@ -413,8 +413,46 @@ app.post('/webhooks/eventbrite/:id', function(req, res) {
 
 });
 
+app.get('/profile/connect/eventbrite/:id', passportConfig.isAuthenticated, function(req, res) {
+  var eventEventbriteId = req.params.id;
+  var eventId = req.query.eventId;
+
+  Event.findOne({_id: eventId}, function(err, event) {
+    if (err || !event) {
+      req.flash('errors', 'Something went wrong');
+      return req.redirect('/profile');
+    }
+
+    var newWebook = {
+      endpoint_url: process.env.PIZZAFY_WEBHOOK_HOST + event.webhookUrl,
+      actions: "order.placed",
+      event_id: eventEventbriteId
+    }
+
+    request.post({
+      url: 'https://www.eventbriteapi.com/v3/webhooks/',
+      headers: {
+        authorization: 'Bearer ' + req.user.eventbriteToken
+      },
+      json: newWebook
+    }, function(err, resp, body) {
+      if (err) console.error(err);
+
+      if (resp.statusCode === 200) {
+        req.flash('success', {msg: 'Webhook registered!'});
+        return res.redirect('/profile/events/' + eventId);
+      }
+
+      req.flash('errors', {msg: 'Something went wrong adding webhook'});
+      return res.redirect('/profile');
+    });
+
+  });
+});
+
 app.get('/profile/connect/eventbrite', passportConfig.isAuthenticated, function(req, res) {
   var eventId = req.query.eventId;
+  console.log("EVENTID", eventId);
 
   if (req.user.eventbriteToken){
     request({
@@ -436,7 +474,8 @@ app.get('/profile/connect/eventbrite', passportConfig.isAuthenticated, function(
       res.render('profile/connect/eventbrite', {
         title: 'Pizzafy',
         layout: 'layouts/profile',
-        events: events
+        events: events,
+        eventId: eventId
       });
     });
   } else {

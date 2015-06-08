@@ -132,7 +132,7 @@ passport.use(new MeetupStrategy({
 passport.use(new EventbriteStrategy({
   clientID: process.env.EVENTBRITE_CLIENT_ID,
   clientSecret: process.env.EVENTBRITE_CLIENT_SECRET,
-  callbackURL: process.env.EVENTBRITE_CALLBACK
+  callbackURL: process.env.EVENTBRITE_CALLBACK,
 }, function(accessToken, refreshToken, profile, done) {
   User.findOne({eventbriteId: profile.id}, function (err, user) {
     if (err) return console.error(err);
