@@ -294,3 +294,16 @@ body {
 		position: absolute;
 	}
 }
+
+
+.rec-img {
+	width: 100%;
+	height: auto;
+	padding: 20px;
+}
+
+@media (min-width:1000px) {
+	.connect-hook {
+		float: right;
+}
+}
