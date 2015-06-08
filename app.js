@@ -299,7 +299,7 @@ app.get('/profile/events', function(req, res) {
   var eventIds = req.user.events;
 
   Event.find({
-    '_id': { 
+    '_id': {
       $in: eventIds
     }
   }, function(err, events) {
@@ -310,7 +310,7 @@ app.get('/profile/events', function(req, res) {
         event.host = null;
       }
     });
-    
+
 
     res.render('profile/events', {
       title: 'Pizzafy',
@@ -342,7 +342,7 @@ app.get('/profile/events/:id', function(req, res) {
     }
 
     User.find({
-      '_id': { 
+      '_id': {
         $in: event.attendees
       }
     }, function(err, attendees) {
@@ -416,28 +416,32 @@ app.post('/webhooks/eventbrite/:id', function(req, res) {
 app.get('/profile/connect/eventbrite', passportConfig.isAuthenticated, function(req, res) {
   var eventId = req.query.eventId;
 
-  request({
-    url: 'https://www.eventbriteapi.com/v3/users/me/owned_events/',
-    headers: {
-      authorization: 'Bearer ' + req.user.eventbriteToken
-    },
-    json: true
-  }, function(err, resp, body) {
-    var events = body.events.map(function(event) {
-      var e = {};
-      e.id = event.id;
-      e.url = event.url;
-      e.name = event.name.text;
+  if (req.user.eventbriteToken){
+    request({
+      url: 'https://www.eventbriteapi.com/v3/users/me/owned_events/',
+      headers: {
+        authorization: 'Bearer ' + req.user.eventbriteToken
+      },
+      json: true
+    }, function(err, resp, body) {
+      var events = body.events.map(function(event) {
+        var e = {};
+        e.id = event.id;
+        e.url = event.url;
+        e.name = event.name.text;
 
-      return e;
-    });
+        return e;
+      });
 
-    res.render('profile/connect/eventbrite', {
-      title: 'Pizzafy',
-      layout: 'layouts/profile',
-      events: events
+      res.render('profile/connect/eventbrite', {
+        title: 'Pizzafy',
+        layout: 'layouts/profile',
+        events: events
+      });
     });
-  });
+  } else {
+    res.redirect('/auth/eventbrite')
+  }
 });
 
 if (app.get('env') === 'development') {
