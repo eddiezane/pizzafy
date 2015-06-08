@@ -115,9 +115,9 @@ passport.use(new MeetupStrategy({
           displayName: profile.displayName,
           firstName: profile.firstName,
           lastName: profile.lastName,
-          picture: picture,
+          picture: picture || 'https://gravatar.com/avatar/f3ada405ce890b6f8204094deb12d8a8?s=200&d=retro',
         },
-        
+
         meetupId: profile.id,
         meetupToken: token,
         meetupTokenSecret: tokenSecret
@@ -148,9 +148,8 @@ passport.use(new EventbriteStrategy({
           displayName: profile.displayName,
           firstName: profile.firstName,
           lastName: profile.lastName,
+          picture: 'https://gravatar.com/avatar/f3ada405ce890b6f8204094deb12d8a8?s=200&d=retro'
         },
-
-        // picture: 'https://graph.facebook.com/' + profile.id + '/picture?type=large'
 
         eventbriteId: profile.id,
         eventbriteToken: accessToken
