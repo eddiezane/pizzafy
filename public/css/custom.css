@@ -247,10 +247,6 @@ body {
 	position: relative;
 }
 
-.navbar {
-	z-index: -1;
-}
-
 #success {
 	position: fixed;
 	min-height: 100vh;
