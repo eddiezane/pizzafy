@@ -38,6 +38,7 @@
     "multer": "^0.1.8",
     "node-uuid": "^1.4.3",
     "passport": "^0.2.2",
+    "passport-eventbrite-oauth": "0.0.1",
     "passport-facebook": "^2.0.0",
     "passport-local": "^1.0.0",
     "passport-meetup": "^0.1.2",

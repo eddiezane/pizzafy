@@ -30,7 +30,14 @@ var userSchema = mongoose.Schema({
 
   twitterId: String,
   twitterToken: String,
-  twitterTokenSecret: String
+  twitterTokenSecret: String,
+
+  meetupId: String,
+  meetupToken: String,
+  meetupTokenSecret: String,
+
+  eventbriteId: String,
+  eventbriteToken: String
 });
 
 userSchema.pre('save', function(next) {

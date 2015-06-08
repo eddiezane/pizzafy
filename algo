@@ -1,0 +1,14 @@
+put everyone in queue
+
+loop
+  check sum of slices
+    if <= 1/2 
+      if pairing in toppings
+        make that half the topping
+      else
+        make that half cheese
+    else
+      get next in queue.
+      if slices > 1/2
+        pick a topping, check if open slices for topping
+        

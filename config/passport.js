@@ -1,9 +1,10 @@
-var passport         = require('passport');
-var mongoose         = require('mongoose');
-var User             = require('../models/user.js');
-var LocalStrategy    = require('passport-local').Strategy;
-var FacebookStrategy = require('passport-facebook').Strategy;
-var MeetupStrategy   = require('passport-meetup').Strategy;
+var passport           = require('passport');
+var mongoose           = require('mongoose');
+var User               = require('../models/user.js');
+var LocalStrategy      = require('passport-local').Strategy;
+var FacebookStrategy   = require('passport-facebook').Strategy;
+var MeetupStrategy     = require('passport-meetup').Strategy;
+var EventbriteStrategy = require('passport-eventbrite-oauth').OAuth2Strategy;
 // var TwitterStrategy  = require('passport-twitter').Strategy;
 
 passport.serializeUser(function(user, done) {
@@ -94,6 +95,72 @@ passport.use(new LocalStrategy({usernameField: 'email'}, function(email, passwor
   });
 }));
 
+passport.use(new MeetupStrategy({
+  consumerKey: process.env.MEETUP_OAUTH_KEY,
+  consumerSecret: process.env.MEETUP_OAUTH_SECRET,
+  callbackURL: process.env.MEETUP_OAUTH_CALLBACK
+}, function(token, tokenSecret, profile, done) {
+  User.findOne({meetupId: profile.id}, function (err, user) {
+    if (err) return console.error(err);
+
+    if (user) {
+      return done(err, user);
+    } else {
+
+      var picture = JSON.parse(profile._raw).results[0].photo.photo_link;
+
+      User.create({
+
+        profile: {
+          displayName: profile.displayName,
+          firstName: profile.firstName,
+          lastName: profile.lastName,
+          picture: picture,
+        },
+        
+        meetupId: profile.id,
+        meetupToken: token,
+        meetupTokenSecret: tokenSecret
+
+      }, function(err, user) {
+        return done(err, user);
+      });
+    }
+  });
+}));
+
+passport.use(new EventbriteStrategy({
+  clientID: process.env.EVENTBRITE_CLIENT_ID,
+  clientSecret: process.env.EVENTBRITE_CLIENT_SECRET,
+  callbackURL: process.env.EVENTBRITE_CALLBACK
+}, function(accessToken, refreshToken, profile, done) {
+  User.findOne({eventbriteId: profile.id}, function (err, user) {
+    if (err) return console.error(err);
+
+    if (user) {
+      return done(err, user);
+    } else {
+      console.log(profile);
+
+      User.create({
+
+        profile: {
+          displayName: profile.displayName,
+          firstName: profile.firstName,
+          lastName: profile.lastName,
+        },
+
+        // picture: 'https://graph.facebook.com/' + profile.id + '/picture?type=large'
+
+        eventbriteId: profile.id,
+        eventbriteToken: accessToken
+
+      }, function(err, user) {
+        return done(err, user);
+      });
+    }
+  });
+}));
 
 exports.isAuthenticated = function(req, res, next) {
   if (req.isAuthenticated()) return next();

@@ -208,6 +208,16 @@ app.get('/auth/twitter/callback', passport.authenticate('twitter', {failureRedir
   res.redirect('/profile');
 });
 
+app.get('/auth/meetup', passport.authenticate('meetup'));
+app.get('/auth/meetup/callback', passport.authenticate('meetup', {failureRedirect: '/login'}), function(req, res) {
+  res.redirect('/profile');
+});
+
+app.get('/auth/eventbrite', passport.authenticate('eventbrite'));
+app.get('/auth/eventbrite/callback', passport.authenticate('eventbrite', {failureRedirect: '/login'}), function(req, res) {
+  res.redirect('/profile');
+});
+
 app.post('/auth/local/signup', function(req, res, next) {
   req.assert('email', 'Email is not valid').isEmail();
   req.assert('password', 'Password must be at least 4 characters long').len(4);
@@ -401,6 +411,33 @@ app.post('/webhooks/eventbrite/:id', function(req, res) {
 
   });
 
+});
+
+app.get('/profile/connect/eventbrite', passportConfig.isAuthenticated, function(req, res) {
+  var eventId = req.query.eventId;
+
+  request({
+    url: 'https://www.eventbriteapi.com/v3/users/me/owned_events/',
+    headers: {
+      authorization: 'Bearer ' + req.user.eventbriteToken
+    },
+    json: true
+  }, function(err, resp, body) {
+    var events = body.events.map(function(event) {
+      var e = {};
+      e.id = event.id;
+      e.url = event.url;
+      e.name = event.name.text;
+
+      return e;
+    });
+
+    res.render('profile/connect/eventbrite', {
+      title: 'Pizzafy',
+      layout: 'layouts/profile',
+      events: events
+    });
+  });
 });
 
 if (app.get('env') === 'development') {
