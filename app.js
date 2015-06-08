@@ -193,7 +193,7 @@ app.post('/profile', passportConfig.isAuthenticated, function(req, res) {
 
   req.user.save();
 
-  req.flash('success', {msg: 'Succuessfully Updated!'});
+  req.flash('success', {msg: 'Successfully Updated!'});
 
   res.redirect('/profile');
 });
@@ -342,7 +342,8 @@ app.get('/profile/events/:id', function(req, res) {
         layout: 'layouts/profile',
         event: event,
         attendees: attendees,
-        webhookHost: process.env.PIZZAFY_WEBHOOK_HOST
+        webhookHost: process.env.PIZZAFY_WEBHOOK_HOST,
+        eventId: req.params.id
       });
     });
 

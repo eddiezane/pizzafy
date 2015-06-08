@@ -5,8 +5,11 @@
     <h1 class="page-title">{{event.name}} <span class="label label-warning">Host</span></h1> 
   </div>
 
-   <div class="event-webhook">
+  <div class="event-webhook">
     <h6><strong>Eventbrite Web Hook</strong></h6>
+    <a href="/profile/connect/eventbrite?eventId={{eventId}}">
+      <button id="profileSubmit" name="submit" class="btn btn-warning" style="float: right;">Connect To Eventbrite</button>
+    </a>
     <textarea placeholder="" class="input-xlarge" value="" disabled>{{webhookHost}}{{event.webhookUrl}}</textarea>
   </div>
 
@@ -25,6 +28,6 @@
     </ul>
   </div>
 
-{{> recommendation}}
+  {{> recommendation}}
 
 </div> <!--cols main-->

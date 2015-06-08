@@ -31,4 +31,25 @@ $(document).ready(function() {
     });
   });
   */
+
+ var clicked = false;
+ $('#buy-now').on('click', function(e) {
+   e.preventDefault();
+   if (!clicked) {
+     $('#success').toggle();
+     clicked = true;
+   }
+
+   var $this = $(this);
+
+   $this.css('background-color', '#f7f7f7');
+   $this.css('color', 'black');
+   $this.text("Your order has been received");
+ });
+
+ $('.close-success').on('click', function(e) {
+   e.preventDefault();
+
+   $('#success').toggle();
+ });
 });
