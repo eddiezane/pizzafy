@@ -22,10 +22,7 @@ img {
 
 body {
 	background: black;
-	background-image: url('/images/pizzahome.jpg');
-	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
+	background-image: url('/images/homebg.jpg');
 	position: realative;
 }
 
